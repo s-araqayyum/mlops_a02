@@ -70,16 +70,22 @@ def extract():
 
 def transform(**kwargs):
     ti = kwargs['ti']
-    data = ti.xcom_pull(task_ids='extract')
-    if not data:
+    extracted_data = ti.xcom_pull(task_ids='extract')
+    if not extracted_data:
         logging.info("No data received from extract")
         return []
 
-    # Filter out entries with missing title or description
+    # Initialize transformed data list
     transformed_data = []
-    for id, title, description, href in data:
-        if title != "No title available" and description != "No description available":
-            transformed_data.append((id, title, description, href))
+
+    # Iterate through each article's data
+    for id, title, description, href in extracted_data:
+        # Strip leading and trailing spaces from title and description
+        clean_title = title.strip() if title else "No title available"
+        clean_description = description.strip() if description else "No description available"
+
+        # Append the cleaned data along with other details to the transformed data list
+        transformed_data.append((id, clean_title, clean_description, href))
 
     return transformed_data
 
