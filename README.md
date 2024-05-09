@@ -3,7 +3,7 @@
 
 ## Project Overview 🎯
 
-This project aims to demonstrate a robust ETL (Extract, Transform, Load) pipeline that uses Apache Airflow for orchestration, Data Version Control (DVC) for data versioning, and GitHub for source control. The goal is to automatically extract news data, ensure its quality, save it in a structured format, and track all changes over time.
+This project aims to demonstrate a robust ETL (Extract, Transform, Load) pipeline that uses Apache Airflow for orchestration, Data Version Control (DVC) for data versioning, coupled with GitHub. The goal is to automatically extract news data, ensure its quality, save it in a structured format, and track all changes over time.
 
 ## Workflow Description 📋
 
@@ -11,7 +11,7 @@ This project aims to demonstrate a robust ETL (Extract, Transform, Load) pipelin
 
 - **Objective**: Extract news data including titles, descriptions, and URLs from [Dawn](https://www.dawn.com/) and [BBC](https://www.bbc.com/).
 - **Method**:
-  - Use Python `requests` to fetch webpage content.
+  - Use Python `requests` to fetch webpage content - Manual scroll-through of both websites showed the use of <title> and <meta name="description"> tags.
   - Parse HTML content with `BeautifulSoup` to extract necessary details.
   - Handle absolute and relative URLs to ensure consistency.
 - **Challenges**:
@@ -32,7 +32,6 @@ This project aims to demonstrate a robust ETL (Extract, Transform, Load) pipelin
 - **Objective**: Save the cleaned and verified data into a CSV file, with the headers ID, Title, Description, Endpoint.
 - **Method**:
   - Use Python's CSV library to write the data into `output.csv`.
-  - Ensure the directory for storing the file exists.
 
 ### 4. Data Version Control with DVC 🗄️
 
@@ -40,7 +39,7 @@ This project aims to demonstrate a robust ETL (Extract, Transform, Load) pipelin
 - **Method**:
   - Initialize DVC in the project directory.
   - Set a remote storage for DVC to track dataset versions.
-  - Push data changes to the DVC remote storage, through tasks detailed in mlops_dag.py
+  - Push data changes to the DVC remote storage, through tasks detailed in mlops_dag.py using BashOperator
 - **Challenges**:
   - Configuring DVC with remote storage solutions like Google Drive and managing access securely. Usage of Google Cloud Console was pertinent.
 - **Commands**:
@@ -72,8 +71,4 @@ This project aims to demonstrate a robust ETL (Extract, Transform, Load) pipelin
 - **Scheduled Runs**: Apache Airflow manages the scheduling and monitoring of the ETL workflow, ensuring that the data pipeline runs smoothly without manual oversight.
 
 ## Conclusion 🛠️
-The integration of Apache Airflow, DVC, and GitHub provides a robust framework for managing data pipelines. It ensures that data extraction, transformation, and loading processes are efficient, reliable, and transparent. This project highlights the importance of data quality, automation, and version control in modern data engineering practices.
-
-
-
 The integration of Apache Airflow, DVC, and GitHub provides a robust framework for managing data pipelines. It ensures that data extraction, transformation, and loading processes are efficient, reliable, and transparent. This project highlights the importance of data quality, automation, and version control in modern data engineering practices.
